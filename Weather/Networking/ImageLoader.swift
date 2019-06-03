@@ -11,7 +11,12 @@ import UIKit
 
 class ImageLoader {
     
+    // MARK: - Properties
+    
     private let baseImageURL = URL(string: "https://openweathermap.org/img/w")!
+    
+    
+    // MARK: - Load image
     
     func loadImage(name: String, completion: @escaping (UIImage?, Error?) -> Void) {
         let url = baseImageURL.appendingPathComponent(name).appendingPathExtension("png")

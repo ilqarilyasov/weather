@@ -10,14 +10,15 @@ import UIKit
 
 class WeatherDetailViewController: UIViewController {
 
+    // MARK: - Properties
+    
+    let loader = ImageLoader()
     var weatherViewModel: WeatherViewModel? {
         didSet { updateViews() }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateViews()
-    }
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
@@ -25,7 +26,14 @@ class WeatherDetailViewController: UIViewController {
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var cloudLabel: UILabel!
     
-    let loader = ImageLoader()
+    
+    // MARK: - Object lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateViews()
+    }
+    
     
     private func updateViews() {
         

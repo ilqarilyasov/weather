@@ -9,14 +9,6 @@
 import UIKit
 import CoreLocation
 
-enum StringValue: String {
-    case reuseidentifier = "CityCell"
-    case segueIdentifier = "WeatherShowDetail"
-    case london = "London"
-    case tokyo = "Tokyo"
-    case userLocation = "UserLocation"
-}
-
 class WeatherTableViewController: UITableViewController {
     
     // MARK: - Properties
@@ -45,6 +37,9 @@ class WeatherTableViewController: UITableViewController {
         fetchBothCities()
         fetchUserLocation()
     }
+    
+    
+    // MARK: - Helper
     
     private func fetchBothCities() {
         client.fetchWeatherByCity(name: StringValue.london.rawValue) { (weather, error) in
@@ -158,9 +153,6 @@ extension WeatherTableViewController: CLLocationManagerDelegate {
             present(alert, animated: true, completion: nil)
         case .restricted:
             let alert = UIAlertController.createSimpleDismissibleAlert(with: "Restricted", message: "We cann't access your location.\nPossibly due to active restrictions such as parental controls being in place.")
-            present(alert, animated: true, completion: nil)
-        case .notDetermined:
-            let alert = UIAlertController.createSimpleDismissibleAlert(with: "Not Determined", message: "We cann't access your location. You can go to Settings and give us access")
             present(alert, animated: true, completion: nil)
         default:
             break

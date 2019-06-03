@@ -17,8 +17,13 @@ enum NetworkClientError: Error {
 
 class NetworkClient {
     
+    // MARK: - Properties
+    
     private let baseURL = URL(string: "https://api.openweathermap.org/data/2.5/weather")!
     private let apiKey = "08f25e735b7f7fb300b1e72ff7775791"
+    
+    
+    // MARK: - Fetch by city name
     
     func fetchWeatherByCity(name: String, completion: @escaping (Weather?, NetworkClientError?) -> Void) {
         
@@ -57,6 +62,9 @@ class NetworkClient {
             }
         }.resume()
     }
+    
+    
+    // MARK: - Fetch by location
     
     func fetchWeatherBy(location: Coordinate, completion: @escaping (Weather?, NetworkClientError?) -> Void) {
         

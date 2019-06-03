@@ -10,19 +10,23 @@ import UIKit
 
 class WeatherTableViewCell: UITableViewCell {
 
-    // MARk: - Instance Properties
+    // MARK: - Properties
+    
+    let loader = ImageLoader()
+    var weatherViewModel: WeatherViewModel? {
+        didSet { updateViews() }
+    }
+    
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
     
-    let loader = ImageLoader()
-
-    var weatherViewModel: WeatherViewModel? {
-        didSet { updateViews() }
-    }
     
+    // MARK: - Helper
     
     private func updateViews() {
         guard let weatherViewModel = weatherViewModel else { return }
@@ -42,6 +46,9 @@ class WeatherTableViewCell: UITableViewCell {
             }
         })
     }
+    
+    
+    // MARK: - Reuse
     
     override func prepareForReuse() {
         super.prepareForReuse()

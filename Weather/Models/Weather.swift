@@ -10,12 +10,17 @@ import Foundation
 
 struct Weather: Decodable {
     
+    // MARK: - Properties
+    
     let locationName: String
     let temperature: Int
     let description: String
     let iconName: String
     let windSpeed: Int
     let cloudiness: Int
+    
+    
+    // MARK: - Coding keys
     
     enum JSONCodingKeys: String, CodingKey {
         case weather, main, name, wind, clouds
@@ -36,6 +41,9 @@ struct Weather: Decodable {
     enum CloudsCodingKeys: String, CodingKey {
         case all
     }
+    
+    
+    // MARK: - Custom decoding init
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: JSONCodingKeys.self)
