@@ -21,6 +21,14 @@ class NetworkClient {
     
     private let baseURL = URL(string: "https://api.openweathermap.org/data/2.5/weather")!
     private let apiKey = "08f25e735b7f7fb300b1e72ff7775791"
+    let networkDataLoader: NetworkDataLoader?
+    
+    
+    // MARK: - Initializer
+    
+    init(networkDataLoader: NetworkDataLoader? = URLSession.shared) {
+        self.networkDataLoader = networkDataLoader
+    }
     
     
     // MARK: - Fetch by city name
@@ -35,7 +43,7 @@ class NetworkClient {
         
         let url = components.url!
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        networkDataLoader?.loadData(from: url) { (data, response, error) in
             if let error = error {
                 NSLog("fetchWeatherByCityName Error performing data task: \(error)")
                 completion(nil, .networkError)
@@ -60,7 +68,7 @@ class NetworkClient {
                 NSLog("fetchWeatherByCityName Decoding error: \(error)")
                 completion(nil, .decodingError)
             }
-        }.resume()
+        }
     }
     
     
@@ -77,7 +85,7 @@ class NetworkClient {
         
         let url = components.url!
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        networkDataLoader?.loadData(from: url) { (data, response, error) in
             if let error = error {
                 NSLog("fetchWeatherByLocation Error performing data task: \(error)")
                 completion(nil, .networkError)
@@ -102,6 +110,6 @@ class NetworkClient {
                 NSLog("fetchWeatherByLocation Decoding error: \(error)")
                 completion(nil, .decodingError)
             }
-        }.resume()
+        }
     }
 }

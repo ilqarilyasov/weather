@@ -14,6 +14,14 @@ class ImageLoader {
     // MARK: - Properties
     
     private let baseImageURL = URL(string: "https://openweathermap.org/img/w")!
+    let networkDataLoader: NetworkDataLoader?
+    
+    
+    // MARK: - Initializer
+    
+    init(networkDataLoader: NetworkDataLoader? = URLSession.shared) {
+        self.networkDataLoader = networkDataLoader
+    }
     
     
     // MARK: - Load image
@@ -21,7 +29,7 @@ class ImageLoader {
     func loadImage(name: String, completion: @escaping (UIImage?, Error?) -> Void) {
         let url = baseImageURL.appendingPathComponent(name).appendingPathExtension("png")
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        networkDataLoader?.loadData(from: url) { (data, response, error) in
             if let error = error {
                 NSLog("Error performing data task: \(error)")
                 completion(nil, error)
@@ -41,6 +49,6 @@ class ImageLoader {
             DispatchQueue.main.async {
                 completion(image, nil)
             }
-        }.resume()
+        }
     }
 }
